@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android/todoListDesign/ToDoList/app/src/main/res/drawable/splash_background.xml" value="0.1105" />
+        <entry key="..\:/Android/todoListDesign/ToDoList/app/src/main/res/layout/activity_main.xml" value="0.17" />
+        <entry key="..\:/Android/todoListDesign/ToDoList/app/src/main/res/layout/activity_splash_screen.xml" value="0.225" />
       </map>
     </option>
   </component>
