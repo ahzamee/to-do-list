@@ -7,7 +7,7 @@
     android:background="@color/dark_grayish_blue"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".TodoFormActivity">
+    tools:context=".view.TodoFormActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package techetronventures.todolist
+package techetronventures.todolist.view
 
 import android.content.Intent
 import android.os.Bundle

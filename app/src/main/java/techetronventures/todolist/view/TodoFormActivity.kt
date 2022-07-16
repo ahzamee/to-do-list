@@ -1,19 +1,17 @@
-package techetronventures.todolist
+package techetronventures.todolist.view
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.format.DateFormat
-import android.util.Log
 import android.view.View
 import android.widget.DatePicker
-import android.widget.TextView
 import android.widget.TimePicker
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
+import techetronventures.todolist.R
 import java.util.*
-import kotlin.math.min
 
 class TodoFormActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener{
