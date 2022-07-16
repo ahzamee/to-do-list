@@ -8,5 +8,11 @@
     <string name="todo_date_time">Date and time</string>
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
-    <string name="date_time">Date Time</string>
+    <string name="field_empty">Failed: Fill all the blanks</string>
+    <string name="failed">Failed: </string>
+    <string name="date_time">Date time</string>
+    <string name="dialog_title_status">Status</string>
+    <string name="dialog_body_success_insert">Your new TODO successfully recorded. Do you want to add another one?</string>
+    <string name="add_new">Add New</string>
+    <string name="back">back</string>
 </resources>

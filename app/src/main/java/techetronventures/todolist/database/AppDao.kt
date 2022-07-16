@@ -12,6 +12,6 @@ interface AppDao {
     fun allTodoList(): List<AppEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert_todo(appEntity: AppEntity)
+    fun insertTodo(appEntity: AppEntity)
 
 }

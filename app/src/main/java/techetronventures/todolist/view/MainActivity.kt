@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         greetingTxt = findViewById(R.id.greeting)
         additem = findViewById(R.id.add_item)
 
-        todayDateTxt.text = todayDate()
+        todayDateTxt.text = todayDate("dd'th' MMMM")
         greetingTxt.text = resources.getText(R.string.greeting)
 
         additem.setOnClickListener(View.OnClickListener {
