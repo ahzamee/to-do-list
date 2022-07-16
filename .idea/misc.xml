@@ -5,8 +5,10 @@
       <map>
         <entry key="..\:/Android/todoListDesign/ToDoList/app/src/main/res/drawable/ic_add.xml" value="0.122" />
         <entry key="..\:/Android/todoListDesign/ToDoList/app/src/main/res/drawable/splash_background.xml" value="0.1105" />
-        <entry key="..\:/Android/todoListDesign/ToDoList/app/src/main/res/layout/activity_main.xml" value="0.14" />
+        <entry key="..\:/Android/todoListDesign/ToDoList/app/src/main/res/layout/activity_main.xml" value="0.21" />
         <entry key="..\:/Android/todoListDesign/ToDoList/app/src/main/res/layout/activity_splash_screen.xml" value="0.225" />
+        <entry key="..\:/Android/todoListDesign/ToDoList/app/src/main/res/layout/activity_todo_form.xml" value="0.2" />
+        <entry key="..\:/Android/todoListDesign/ToDoList/app/src/main/res/layout/new_todo_list_form.xml" value="0.15" />
       </map>
     </option>
   </component>
