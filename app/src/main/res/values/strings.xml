@@ -10,6 +10,7 @@
     <string name="cancel">Cancel</string>
     <string name="field_empty">Failed: Fill all the blanks</string>
     <string name="failed">Failed: </string>
+    <string name="update_success">Success: Todo info updated. Please wait. You will be redirect to Home page.</string>
     <string name="date_time">Date time</string>
     <string name="dialog_title_status">Status</string>
     <string name="dialog_body_success_insert">Your new TODO successfully recorded. Do you want to add another one?</string>

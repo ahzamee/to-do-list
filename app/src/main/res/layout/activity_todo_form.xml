@@ -36,6 +36,7 @@
             style="@style/txt_field">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/todo_title_edt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
@@ -50,6 +51,7 @@
             style="@style/txt_field">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/todo_note_edt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />

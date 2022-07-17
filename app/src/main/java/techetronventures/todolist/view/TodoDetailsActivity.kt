@@ -3,13 +3,13 @@ package techetronventures.todolist.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.button.MaterialButton
 import techetronventures.todolist.R
 import techetronventures.todolist.database.AppEntity
 import techetronventures.todolist.util.convertDateToFormat
+import techetronventures.todolist.viewModel.MainActivityViewModel
 
 class TodoDetailsActivity : AppCompatActivity() {
 
@@ -20,6 +20,7 @@ class TodoDetailsActivity : AppCompatActivity() {
     private lateinit var itemDelete: MaterialButton
 
     private lateinit var appEntity: AppEntity
+    private lateinit var viewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +38,7 @@ class TodoDetailsActivity : AppCompatActivity() {
         itemDelete = findViewById(R.id.item_delete)
 
         appEntity = intent.getSerializableExtra("TodoItem") as AppEntity
+        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
         itemDateTime.text = convertDateToFormat(appEntity.dateTime.toString())
         itemTitle.text = appEntity.title.toString()
@@ -51,10 +53,12 @@ class TodoDetailsActivity : AppCompatActivity() {
     }
 
     private fun deleteItem() {
-        TODO("Not yet implemented")
+        viewModel.deleteItem(appEntity)
     }
 
     private fun editItem() {
-        TODO("Not yet implemented")
+        var intent = Intent(this, TodoFormActivity::class.java)
+        intent.putExtra("TodoItem", appEntity)
+        startActivity(intent)
     }
 }

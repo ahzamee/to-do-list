@@ -2,6 +2,7 @@ package techetronventures.todolist.view
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.format.DateFormat
@@ -12,34 +13,57 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import techetronventures.todolist.R
 import techetronventures.todolist.database.AppEntity
 import techetronventures.todolist.util.todayDate
 import techetronventures.todolist.viewModel.MainActivityViewModel
 import java.util.*
+import kotlin.concurrent.thread
 
 class TodoFormActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener{
 
+    lateinit var todoItem: AppEntity
     private lateinit var todoTitleTxtV: TextInputLayout
+    private lateinit var todoTitleEdt: TextInputEditText
     private lateinit var todoNoteTxtV: TextInputLayout
+    private lateinit var todoNoteEdt: TextInputEditText
     private lateinit var datetimeBtn: MaterialButton
-    private lateinit var newTodoSave: MaterialButton
+    private lateinit var todoSaveBtn: MaterialButton
     private lateinit var todoDateTime:String
+    private var isUpdateItem: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todo_form)
 
         initVariables()
+        checkIntentData()
+    }
+
+    private fun checkIntentData() {
+        if(intent.getSerializableExtra("TodoItem")!=null){
+            todoItem = intent.getSerializableExtra("TodoItem") as AppEntity
+
+            todoTitleEdt.setText(todoItem.title.toString())
+            todoNoteEdt.setText(todoItem.note.toString())
+            datetimeBtn.text = todoItem.dateTime.toString()
+
+            isUpdateItem = true
+        }
     }
 
     private fun initVariables() {
         todoTitleTxtV = findViewById(R.id.todo_title)
+        todoTitleEdt = findViewById(R.id.todo_title_edt)
+
         todoNoteTxtV = findViewById(R.id.todo_note)
+        todoNoteEdt = findViewById(R.id.todo_note_edt)
+
         datetimeBtn = findViewById(R.id.date_time)
-        newTodoSave = findViewById(R.id.save_item)
+        todoSaveBtn = findViewById(R.id.save_item)
 
         datetimeBtn.setOnClickListener {
             val calendar: Calendar = Calendar.getInstance()
@@ -53,36 +77,61 @@ class TodoFormActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
             datePickerDialog.show()
         }
 
-        newTodoSave.setOnClickListener(View.OnClickListener {
+        todoSaveBtn.setOnClickListener(View.OnClickListener {
 
-            //check all the field is empty or not.
-            if ((todoTitleTxtV.editText?.text)?.isBlank() == true ||
-                (todoNoteTxtV.editText?.text)?.isBlank() == true || !::todoDateTime.isInitialized
-            ){
-                Toast.makeText(this, resources.getString(R.string.field_empty), Toast.LENGTH_SHORT).show()
+            if (isUpdateItem){
+                updateTodoItem(todoItem)
                 return@OnClickListener
             }
-
-            val viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
-
-
-            val todoEntity = AppEntity(
-                title = todoTitleTxtV.editText?.text.toString(),
-                note = todoNoteTxtV.editText?.text.toString(),
-                dateTime = datetimeBtn.text.toString(),
-                status = true,
-                createdOn = todayDate("dd:mm:yy"),
-                updatedOn = todayDate("dd:mm:yy")
-            )
-
-            try {
-                viewModel.insertAllRecord(todoEntity)
-                showSuccessDialog(resources.getString(R.string.dialog_body_success_insert))
-            }catch (e: Exception){
-                showSuccessDialog(resources.getString(R.string.failed)+e)
-            }
+            newTodoSave()
 
         })
+    }
+
+    private fun updateTodoItem(todoItem: AppEntity) {
+        val viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+
+        val todoEntity = AppEntity(
+            id = todoItem.id,
+            title = todoTitleTxtV.editText?.text.toString(),
+            note = todoNoteTxtV.editText?.text.toString(),
+            dateTime = datetimeBtn.text.toString(),
+            status = true,
+            createdOn = todoItem.createdOn,
+            updatedOn = todayDate("dd:mm:yy")
+        )
+
+        viewModel.updateItem(todoEntity)
+        showUpdateDialog(resources.getString(R.string.update_success))
+    }
+
+    private fun newTodoSave() {
+        //check all the field is empty or not.
+        if ((todoTitleTxtV.editText?.text)?.isBlank() == true ||
+            (todoNoteTxtV.editText?.text)?.isBlank() == true || !::todoDateTime.isInitialized
+        ){
+            Toast.makeText(this, resources.getString(R.string.field_empty), Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+
+
+        val todoEntity = AppEntity(
+            title = todoTitleTxtV.editText?.text.toString(),
+            note = todoNoteTxtV.editText?.text.toString(),
+            dateTime = datetimeBtn.text.toString(),
+            status = true,
+            createdOn = todayDate("dd:mm:yy"),
+            updatedOn = todayDate("dd:mm:yy")
+        )
+
+        try {
+            viewModel.insertAllItem(todoEntity)
+            showSuccessDialog(resources.getString(R.string.dialog_body_success_insert))
+        }catch (e: Exception){
+            showSuccessDialog(resources.getString(R.string.failed)+e)
+        }
     }
 
     private fun showSuccessDialog(message: String) {
@@ -107,6 +156,26 @@ class TodoFormActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         }
         //show dialog
         alertDialog.show()
+    }
+
+    private fun showUpdateDialog(message: String) {
+        val alertDialog: AlertDialog = this.let {
+            val builder = AlertDialog.Builder(it)
+            builder.setTitle(resources.getString(R.string.dialog_title_status))
+            builder.setMessage(message)
+
+            // Create the AlertDialog
+            builder.create()
+        }
+        //show dialog
+        alertDialog.show()
+
+        thread {
+            Thread.sleep (5000)
+            alertDialog.dismiss()
+            finish()
+            startActivity(Intent(this, MainActivity::class.java))
+        }
     }
 
     override fun onDateSet(p0: DatePicker?, year: Int, month: Int, day: Int) {

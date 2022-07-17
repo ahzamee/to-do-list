@@ -37,6 +37,12 @@ class MainActivity : AppCompatActivity() {
         loadTOdoList()
     }
 
+    override fun onRestart() {
+        super.onRestart()
+
+        loadTOdoList()
+    }
+
     private fun initVariables() {
         todayDateTxt = findViewById(R.id.today_date)
         greetingTxt = findViewById(R.id.greeting)
@@ -63,7 +69,6 @@ class MainActivity : AppCompatActivity() {
 
             todoListAdapter.setTodoList(t)
             todoListAdapter.notifyDataSetChanged()
-
         }
 
 

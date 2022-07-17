@@ -11,25 +11,33 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
 
     @Inject
     lateinit var appDao: AppDao
-    private var allRecordList: MutableLiveData<List<AppEntity>>
+    private var allItemList: MutableLiveData<List<AppEntity>>
 
     init {
         (application as MyApp).getAppComponent().inject(this)
 
-        allRecordList = MutableLiveData()
-        getAllRecords()
+        allItemList = MutableLiveData()
+        getAllItem()
     }
 
     fun getRecordsObserver(): MutableLiveData<List<AppEntity>>{
-        return allRecordList
+        return allItemList
     }
 
-    private fun getAllRecords(){
+    private fun getAllItem(){
         val list = appDao.allTodoList()
-        allRecordList.postValue(list)
+        allItemList.postValue(list)
     }
 
-    fun insertAllRecord(appEntity: AppEntity){
+    fun insertAllItem(appEntity: AppEntity){
         appDao.insertTodo(appEntity)
+    }
+
+    fun deleteItem(appEntity: AppEntity){
+        appDao.deleteItem(appEntity)
+    }
+
+    fun updateItem(appEntity: AppEntity){
+        appDao.updateItem(appEntity)
     }
 }

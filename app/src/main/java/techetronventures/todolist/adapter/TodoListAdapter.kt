@@ -32,9 +32,6 @@ class TodoListAdapter(
     }
 
     override fun getItemCount(): Int {
-        if (appEntityList.size > 10){
-            return 10
-        }
         return appEntityList.size
     }
 
