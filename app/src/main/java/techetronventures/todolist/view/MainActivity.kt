@@ -72,9 +72,9 @@ class MainActivity : AppCompatActivity() {
     private fun initTodoListRecyclerView() {
         var listener = object : TodoListAdapter.OnItemClickListener {
             override fun onItemClick(data: AppEntity) {
-                //var intent = Intent(this@MainActivity, TodoDetails::class.java)
-                //intent.putExtra("TodoItem", data)
-                //startActivity(intent)
+                var intent = Intent(this@MainActivity, TodoDetailsActivity::class.java)
+                intent.putExtra("TodoItem", data)
+                startActivity(intent)
                 Log.d("data", data.title.toString())
             }
         }
