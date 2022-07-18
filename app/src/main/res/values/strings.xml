@@ -16,4 +16,6 @@
     <string name="dialog_body_success_insert">Your new TODO successfully recorded. Do you want to add another one?</string>
     <string name="add_new">Add New</string>
     <string name="back">back</string>
+    <string name="create_on">Created on: </string>
+    <string name="updated_on">Last update: </string>
 </resources>

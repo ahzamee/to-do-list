@@ -9,6 +9,18 @@
     tools:context=".view.TodoDetailsActivity">
 
     <TextView
+        android:id="@+id/item_created_on"
+        style="@style/txt_v"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/item_updated_on"
+        style="@style/txt_v"
+        app:layout_constraintTop_toBottomOf="@id/item_created_on"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
         android:id="@+id/item_date_time"
         style="@style/txt_v"
         app:layout_constraintTop_toTopOf="parent"
