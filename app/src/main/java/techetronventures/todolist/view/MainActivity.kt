@@ -1,15 +1,14 @@
 package techetronventures.todolist.view
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import androidx.lifecycle.Observer
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
@@ -27,20 +26,25 @@ class MainActivity : AppCompatActivity() {
     private lateinit var additem: MaterialButton
     private lateinit var todoListRecyclerView: RecyclerView
 
+    private lateinit var viewModel: MainActivityViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         initVariables()
         initTodoListRecyclerView()
-
-        loadTOdoList()
+        loadTodoList()
     }
 
     override fun onRestart() {
         super.onRestart()
 
-        loadTOdoList()
+        Toast.makeText( this,"onRestart", Toast.LENGTH_SHORT).show()
+
+        //loadTodoList()
+        // initTodoListRecyclerView()
+        //todoListAdapter.notifyDataSetChanged()
     }
 
     private fun initVariables() {
@@ -49,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         additem = findViewById(R.id.add_item)
         todoListRecyclerView = findViewById(R.id.todo_list_recycler_view)
 
+        viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
         todayDateTxt.text = todayDate("dd'th' MMMM")
         greetingTxt.text = resources.getText(R.string.greeting)
 
@@ -58,20 +63,13 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun loadTOdoList() {
-        val viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
-
-        viewModel.getRecordsObserver().observe(this
-        ) { t ->
-            if (t != null) {
-                Log.d("data", "received data: " + t.size.toString())
+    private fun loadTodoList() {
+        viewModel.allItemList.observe(this){
+            it.let {
+                todoListAdapter.setTodoList(it)
+                todoListAdapter.notifyDataSetChanged()
             }
-
-            todoListAdapter.setTodoList(t)
-            todoListAdapter.notifyDataSetChanged()
         }
-
-
     }
 
     private fun initTodoListRecyclerView() {
@@ -86,5 +84,6 @@ class MainActivity : AppCompatActivity() {
         todoListRecyclerView.layoutManager = LinearLayoutManager(this)
         todoListAdapter = TodoListAdapter(listener)
         todoListRecyclerView.adapter = todoListAdapter
+        todoListAdapter.notifyDataSetChanged()
     }
 }

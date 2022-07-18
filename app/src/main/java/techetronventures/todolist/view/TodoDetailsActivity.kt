@@ -3,6 +3,7 @@ package techetronventures.todolist.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.button.MaterialButton
@@ -27,7 +28,6 @@ class TodoDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_todo_details)
 
         initVariables()
-
     }
 
     private fun initVariables() {
@@ -54,6 +54,8 @@ class TodoDetailsActivity : AppCompatActivity() {
 
     private fun deleteItem() {
         viewModel.deleteItem(appEntity)
+
+
     }
 
     private fun editItem() {

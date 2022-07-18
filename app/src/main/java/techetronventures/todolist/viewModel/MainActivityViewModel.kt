@@ -1,7 +1,7 @@
 package techetronventures.todolist.viewModel
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
+import kotlinx.coroutines.launch
 import techetronventures.todolist.MyApp
 import techetronventures.todolist.database.AppDao
 import techetronventures.todolist.database.AppEntity
@@ -11,33 +11,29 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
 
     @Inject
     lateinit var appDao: AppDao
-    private var allItemList: MutableLiveData<List<AppEntity>>
+
+    var allItemList : LiveData<List<AppEntity>>
 
     init {
         (application as MyApp).getAppComponent().inject(this)
-
-        allItemList = MutableLiveData()
-        getAllItem()
-    }
-
-    fun getRecordsObserver(): MutableLiveData<List<AppEntity>>{
-        return allItemList
-    }
-
-    private fun getAllItem(){
-        val list = appDao.allTodoList()
-        allItemList.postValue(list)
+        allItemList = appDao.allTodoList().asLiveData()
     }
 
     fun insertAllItem(appEntity: AppEntity){
-        appDao.insertTodo(appEntity)
+        viewModelScope.launch {
+            appDao.insertTodo(appEntity)
+        }
     }
 
     fun deleteItem(appEntity: AppEntity){
-        appDao.deleteItem(appEntity)
+        viewModelScope.launch {
+            appDao.deleteItem(appEntity)
+        }
     }
 
     fun updateItem(appEntity: AppEntity){
-        appDao.updateItem(appEntity)
+        viewModelScope.launch {
+            appDao.updateItem(appEntity)
+        }
     }
 }

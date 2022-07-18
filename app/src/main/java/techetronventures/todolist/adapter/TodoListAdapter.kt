@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import techetronventures.todolist.R
 import techetronventures.todolist.database.AppEntity
+import techetronventures.todolist.util.convertDateToFormat
 
 class TodoListAdapter(
     private val listener: OnItemClickListener): RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>() {
@@ -44,7 +45,7 @@ class TodoListAdapter(
 
         fun bind(data: AppEntity, listener: OnItemClickListener){
             itemTodoTitleTxtView.text = data.title
-            itemTodoDateTxtView.text = data.dateTime
+            itemTodoDateTxtView.text = data.dateTime?.let { convertDateToFormat(it) }
 
             itemView.setOnClickListener{listener.onItemClick(data)}
         }
