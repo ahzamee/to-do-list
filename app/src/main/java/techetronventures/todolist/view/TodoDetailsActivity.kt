@@ -11,6 +11,7 @@ import com.google.android.material.button.MaterialButton
 import techetronventures.todolist.R
 import techetronventures.todolist.database.AppEntity
 import techetronventures.todolist.util.convertDateToFormat
+import techetronventures.todolist.util.showUpdateDialog
 import techetronventures.todolist.viewModel.MainActivityViewModel
 
 class TodoDetailsActivity : AppCompatActivity() {
@@ -63,6 +64,7 @@ class TodoDetailsActivity : AppCompatActivity() {
 
     private fun deleteItem() {
         viewModel.deleteItem(appEntity)
+        showUpdateDialog(this,  resources.getString(R.string.update_success))
     }
 
     private fun editItem() {

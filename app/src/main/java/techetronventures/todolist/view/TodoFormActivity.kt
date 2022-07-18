@@ -2,7 +2,6 @@ package techetronventures.todolist.view
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.format.DateFormat
@@ -17,10 +16,10 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import techetronventures.todolist.R
 import techetronventures.todolist.database.AppEntity
+import techetronventures.todolist.util.showUpdateDialog
 import techetronventures.todolist.util.todayDate
 import techetronventures.todolist.viewModel.MainActivityViewModel
 import java.util.*
-import kotlin.concurrent.thread
 
 class TodoFormActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener{
@@ -102,7 +101,7 @@ class TodoFormActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         )
 
         viewModel.updateItem(todoEntity)
-        showUpdateDialog(resources.getString(R.string.update_success))
+        showUpdateDialog(this, resources.getString(R.string.update_success))
     }
 
     private fun newTodoSave() {
@@ -158,7 +157,7 @@ class TodoFormActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         alertDialog.show()
     }
 
-    private fun showUpdateDialog(message: String) {
+    /*private fun showUpdateDialog(message: String) {
         val alertDialog: AlertDialog = this.let {
             val builder = AlertDialog.Builder(it)
             builder.setTitle(resources.getString(R.string.dialog_title_status))
@@ -176,7 +175,7 @@ class TodoFormActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
             finish()
             startActivity(Intent(this, MainActivity::class.java))
         }
-    }
+    }*/
 
     override fun onDateSet(p0: DatePicker?, year: Int, month: Int, day: Int) {
         val calendar: Calendar = Calendar.getInstance()

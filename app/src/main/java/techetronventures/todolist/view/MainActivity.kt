@@ -39,12 +39,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
-
-        Toast.makeText( this,"onRestart", Toast.LENGTH_SHORT).show()
-
-        //loadTodoList()
-        // initTodoListRecyclerView()
-        //todoListAdapter.notifyDataSetChanged()
     }
 
     private fun initVariables() {
