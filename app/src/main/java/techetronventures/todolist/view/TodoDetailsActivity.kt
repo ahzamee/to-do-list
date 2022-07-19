@@ -1,10 +1,8 @@
 package techetronventures.todolist.view
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.button.MaterialButton
@@ -54,10 +52,10 @@ class TodoDetailsActivity : AppCompatActivity() {
         itemTitle.text = appEntity.title.toString()
         itemNote.text = appEntity.note.toString()
 
-        itemEdit.setOnClickListener(){
+        itemEdit.setOnClickListener {
             editItem()
         }
-        itemDelete.setOnClickListener(){
+        itemDelete.setOnClickListener{
             deleteItem()
         }
     }
@@ -68,7 +66,7 @@ class TodoDetailsActivity : AppCompatActivity() {
     }
 
     private fun editItem() {
-        var intent = Intent(this, TodoFormActivity::class.java)
+        val intent = Intent(this, TodoFormActivity::class.java)
         intent.putExtra("TodoItem", appEntity)
         startActivity(intent)
     }
