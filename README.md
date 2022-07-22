@@ -10,7 +10,7 @@ You can also modify your TODO LIST like update and delete.
 
 ## Screenshots
 
-<img width="350" src="app_images/todoList.jpeg"/><img width="250" src="app_images/todoInput.jpeg"/><img width="250" src="app_images/todoDetails.jpeg"/>
+<img style="margin:10px" width="200" src="app_images/todoList.jpeg"/><img style="margin:10px" width="200" src="app_images/todoInput.jpeg"/><img style="margin:10px" width="200" src="app_images/todoDetails.jpeg"/>
 
 ## Description
 
