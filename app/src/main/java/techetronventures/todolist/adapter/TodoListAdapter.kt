@@ -1,13 +1,17 @@
 package techetronventures.todolist.adapter
 
+import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Switch
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import techetronventures.todolist.R
 import techetronventures.todolist.database.AppEntity
 import techetronventures.todolist.util.convertDateToFormat
+import techetronventures.todolist.util.todayDate
 
 class TodoListAdapter(
     private val listener: OnItemClickListener): RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>() {
@@ -40,12 +44,26 @@ class TodoListAdapter(
 
         private val itemTodoTitleTxtView: TextView = view.findViewById(R.id.item_todo_title)
         private val itemTodoDateTxtView: TextView = view.findViewById(R.id.item_todo_date)
-        //private val itemCircleView: View = view.findViewById(R.id.item_circle)
+        private val itemCircleView: View = view.findViewById(R.id.item_circle)
         //private val itemLineView: View = view.findViewById(R.id.item_line)
 
         fun bind(data: AppEntity, listener: OnItemClickListener){
             itemTodoTitleTxtView.text = data.title
             itemTodoDateTxtView.text = data.dateTime?.let { convertDateToFormat(it) }
+
+            val res = data.dateTime?.let {
+                convertDateToFormat(it,"yyyy-MM-dd'T'HH:mm:ss","yyyy-MM-dd")
+            }?.compareTo(todayDate("yyyy-MM-dd"))
+
+            if (res != null) {
+                if (res>0){
+                    itemCircleView.setBackgroundResource(R.drawable.round_corner_active)
+                }else if(res<0){
+                    itemCircleView.setBackgroundResource(R.drawable.round_corner_inactive)
+                }else{
+                    itemCircleView.setBackgroundResource(R.drawable.round_corner_current)
+                }
+            }
 
             itemView.setOnClickListener{listener.onItemClick(data)}
         }

@@ -88,7 +88,7 @@ class TodoFormActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     }
 
     private fun updateTodoItem(todoItem: AppEntity) {
-        val viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        val viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
 
         val todoEntity = AppEntity(
             id = todoItem.id,
@@ -157,29 +157,10 @@ class TodoFormActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         alertDialog.show()
     }
 
-    /*private fun showUpdateDialog(message: String) {
-        val alertDialog: AlertDialog = this.let {
-            val builder = AlertDialog.Builder(it)
-            builder.setTitle(resources.getString(R.string.dialog_title_status))
-            builder.setMessage(message)
-
-            // Create the AlertDialog
-            builder.create()
-        }
-        //show dialog
-        alertDialog.show()
-
-        thread {
-            Thread.sleep (5000)
-            alertDialog.dismiss()
-            finish()
-            startActivity(Intent(this, MainActivity::class.java))
-        }
-    }*/
-
     override fun onDateSet(p0: DatePicker?, year: Int, month: Int, day: Int) {
         val calendar: Calendar = Calendar.getInstance()
         //yy-mm-ddThh:mm:ss
+        val month = month+1 //as it is counting from zero
         todoDateTime = "$year-$month-$day"
 
         val timePickerDialog = TimePickerDialog(this, this, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE),

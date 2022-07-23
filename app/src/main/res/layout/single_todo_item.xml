@@ -9,7 +9,7 @@
         android:id="@+id/item_circle"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:background="@drawable/round_corner"
+        android:background="@drawable/round_corner_active"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>
 

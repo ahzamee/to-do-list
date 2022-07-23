@@ -12,12 +12,6 @@ public fun todayDate(pattern :String): String {
     return sdf.format(Date())
 }
 
-/*public fun convertDateTime(dateTime: String): String{
-    //val zonedTime = ZonedDateTime.parse("2021-05-16T05:02:26Z")
-    val zonedTime = ZonedDateTime.parse(dateTime)
-    return zonedTime.format(DateTimeFormatter.ofPattern("EEEE-MMMM-u HH:mm"))
-}*/
-
 public fun convertDateToFormat(
     dateToConvert: String,
     inputDateFormat: String = "yyyy-MM-dd'T'HH:mm:ss",
